@@ -72,6 +72,7 @@ public class Package {
      远程执行	https://www.cnblogs.com/lingluo2017/p/11529679.html
      打包没有找到。路径有问题
      直接打jar / war 过程对比
+            打war;1.修改pom war  2.在boot类继承继承SpringBootServletInitializer，并重写configure方法 详见SpringBootApplication
 
      0.肯定是idea可以启动并访问才去打包
      1.C:\YangWenjunData\mySrc\MockFramework11>mvn clean package -Dmaven.test.skip
