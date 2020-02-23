@@ -3,7 +3,7 @@ package com.boot;
 public class Package {
 
     /**
-     *
+     *   *****************Linux 环境搭建 和 打包**************************
      *
      *1.为了熟练使用linux相关知识命令以便于排查问题
      2.部署包
@@ -86,7 +86,7 @@ public class Package {
 
 
 
-     8。远程调试
+     8。远程调试  --- idea
 
 
      *

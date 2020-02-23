@@ -5,6 +5,9 @@ public class command {
 
 
     /***
+     *
+     * ***************************查看对应的应用日志********************
+     *
      * man xxx 提示  也可以直接使用/-n 查找-n参数
      *
      * less
@@ -65,10 +68,30 @@ public class command {
      *
      *
      * 5.查看磁盘、内存、cpu、进程、线程、网络、io
+     *
+     *      1.top      总体动态监控  cpu / 内存 / 进程占用      https://www.cnblogs.com/niuben/p/12017242.html
+     *      2.vmstat                 cpu / 内存 / io /system    https://blog.csdn.net/ZYC88888/article/details/79028175 中的vmstat
+     *                           r ： 运行和等待CPU时间片的进程数（若长期大于CPU的个数，说明CPU不足，需要增加CPU）
+                                 b ： 在等待资源的进程数（如等待I/O或者内存交换等）
+                                 如果si、so的值长期不为0，表示系统内存不足，需要增加系统内存
+                                 bi+bo参考值为1000，若超过1000，且wa较大，表示系统IO有问题，应该提高磁盘的读写性能
+                                 in与cs越大，内核消耗的CPU时间就越多
+                                 us+sy参考值为80%，如果大于80%，说明可能存在CPU资源不足的情况
+
      *--memory
-     *      1.top
+     *      1.free
      *
+     *--cpu
+     *      1.sar
      *
+     *--磁盘
+     *      1.iostat  磁盘读写速度
+     *                      %util： 在统计时间内所有处理IO时间，除以总共统计时间。例如，如果统计间隔1秒，该设备有0.8秒在处理IO，
+                     　　　　而0.2秒闲置，那么该设备的%util = 0.8/1 = 80%，
+                     　　　　所以该参数暗示了设备的繁忙程度
+                     　　　　。一般地，如果该参数是100%表示设备已经接近满负荷运行了
+                     　　　　（当然如果是多磁盘，即使%util是100%，因为磁盘的并发能力，所以磁盘使用未必就到了瓶颈）。
+     *          https://blog.csdn.net/ZYC88888/article/details/79028175
      *
      * --net
      *      1.从进程-端口  ps -ef|grep java          netstat -ntulp |grep 进程号     查看进程开启哪些端口
@@ -77,33 +100,36 @@ public class command {
      *      4.查看端口是否对外开放  telnet ip 端口号
      *      5.iptable 防火墙  cat  /etc/sysconfig/iptables  --- https://www.jianshu.com/p/b3068288d80d
      *
+     *      1.ping
+     *      2.netstat -i
+     *              正常情况下，RX-ERR，RX-DRP，RX-OVR，TX-ERR，TX-DRP，TX-OVR都应该为0，若不为0且很大，那么网络质量肯定有问题，网络传输性能也一定会下降。
+                    当网络传输存在问题时，可以检测网卡设备是否存在故障，还可以检查网络部署环境是否合理。
+
+            netstat -r （default行对应的值表示系统的默认路由）
+     *
      *
      *6.从进程信息读取 - 进程号
+     *          root      2328     1  0 18:43 ?        00:00:07 /usr/jdk/jdk1.8.0_112/jre/bin/java -Djava.util.logging.
+     *          config.file=/usr/tomcat/apache-tomcat-8.0.38/conf/logging.properties -Djava.util.logging.manager=
+     *          org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=
+     *          org.apache.catalina.webresources -Djava.rmi.server.hostname=192.168.129.128 -Dcom.sun.management.jmxremote
+     *          -Dcom.sun.management.jmxremote.port=9999 -Dcom.sun.management.jmxremote.ssl=false
+     *          -Dcom.sun.management.jmxremote.authenticate=true -Djava.endorsed.dirs=/usr/tomcat/apache-tomcat-8.0.38/
+     *          endorsed -classpath /usr/tomcat/apache-tomcat-8.0.38/bin/bootstrap.jar:/usr/tomcat/apache-tomcat-8.0.38
+     *          /bin/tomcat-juli.jar -Dcatalina.base=/usr/tomcat/apache-tomcat-8.0.38 -Dcatalina.home=/usr/tomca
+     *          t/apache-tomcat-8.0.38 -Djava.io.tmpdir=/usr/tomcat/apache-tomcat-8.0.38/temp org.apache.catalina.st
+     *          artup.Bootstrap start
+
      *      1.启动时间
+     *           UID PID PPID C(处理器利用率（废弃率) 进程启动时间 TTY TIME（累积CPU时间） CMD
      *      2.配置信息
+     *          使用jdk  - tomcat 启动参数配置 比如这里配置了远程连接Djava.rmi.server.hostname=192.168.129.128:9999等
      *
+     * --------------------------以上信息已经从系统层面得到数据，接下来对该进程进行 ，使用java工具 -----------------
      *
+     * 7.PerformTool.java
      *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
+
      *
      *
      */
