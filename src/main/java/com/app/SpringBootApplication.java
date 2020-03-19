@@ -1,5 +1,7 @@
 package com.app;
 
+import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
+import org.apache.dubbo.config.spring.context.annotation.EnableDubboConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -14,6 +16,9 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
  */
 //注釋掉的地方就是打war包时需要继承SpringBootServletInitializer，并重写configure方法
     @org.springframework.boot.autoconfigure.SpringBootApplication(scanBasePackages = {"com"},exclude = SecurityAutoConfiguration.class)
+//    @EnableDubboConfiguration
+    @EnableDubbo
+    @EnableDubboConfig
     public class SpringBootApplication /*extends SpringBootServletInitializer*/ {
 
         public static void main(String[] args) {

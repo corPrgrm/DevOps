@@ -74,6 +74,9 @@ public class Package {
      直接打jar / war 过程对比
             打war;1.修改pom war  2.在boot类继承继承SpringBootServletInitializer，并重写configure方法 详见SpringBootApplication
 
+     8.redis安装
+            1.make编译  https://www.jianshu.com/p/bc84b2b71c1c
+
      0.肯定是idea可以启动并访问才去打包
      1.C:\YangWenjunData\mySrc\MockFramework11>mvn clean package -Dmaven.test.skip
      2.idea 打包的jar运行报 “XXX中没有主清单属性”:https://blog.csdn.net/banjing_1993/article/details/83073210
@@ -82,6 +85,12 @@ public class Package {
      5.在虚拟机内部访问 因为远程访问不了 网络问题 ------TODO
      6.远程不是访问8080吗？端口看哪里？--后台一直在报错。连接不到jdbc --注意分析日志 而不是简单的报错信息
      7.拆出项目 不连db 否则启动都有问题  重新建一个项目-导入setting** --按照上面打包测试 没问题
+     000000000000000000000000000000000000
+
+
+
+
+
      8.测试性能 - 关闭访问并没有解决因为后台是死循环，机器声音加大，因为cpu 巨大
 
 
