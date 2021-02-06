@@ -1,6 +1,13 @@
 0.Kubectl基本操作命令  ：https://blog.csdn.net/u011095110/article/details/83545350
   Kubernetes中Namespace与Pod概念:  https://blog.csdn.net/weixin_45186298/article/details/103926743
   pod和service关系：https://zhuanlan.zhihu.com/p/105006577?utm_source=wechat_session  ********* Kubernetes in Action中文版
+  		1.cluster  cluster是 计算、存储和网络资源的集合，k8s利用这些资源运行各种基于容器的应用。
+		2.master    master是cluster的大脑，他的主要职责是调度，即决定将应用放在那里运行。master运行linux操作系统，可以是物理机或者虚拟机。为了实现高可用，可以运行多个master。
+		3.node	node的职责是运行容器应用。node由master管理，node负责监控并汇报容器的状态，同时根据master的要求管理容器的生命周期。node运行在linux的操作系统上，可以是物理机或者是虚拟机。
+		4.pod	pod是k8s的最小工作单元。每个pod包含一个或者多个容器。pod中的容器会作为一个整体被master调度到一个node上运行。
+		5.controller	k8s通常不会直接创建pod,而是通过controller来管理pod的。controller中定义了pod的部署特性，比如有几个剧本，在什么样的node上运行等。为了满足不同的业务场景，k8s提供了多种controller，包括deployment、replicaset、daemonset、statefulset、job等。
+
+ 
   进入pod可以通过ps -ef查看对应的进程 比如searcher是否启动....
 
 1.kafka问题排查  https://jingyan.baidu.com/article/eb9f7b6d367679869364e8d4.html
