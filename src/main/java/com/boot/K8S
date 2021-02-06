@@ -22,6 +22,17 @@
 4.#进入 kafka 的 pod
 kubectl exec -it alibaba-kafka-cluster-private-paas-default-0 bash    ==> 如何从config配置中的kafka信息获取到对应的pod....????
 
+	通过原生kafka，查看对应的topic是否有数据 :https://www.cnblogs.com/sunshine-blog/p/11929867.html
+	zookeeper的端口号2181和broker的端口号9092为什么不同呢？
+		你可以这样理解，zookeeper和kafka是两个程序。这两个程序启动都有自己的默认端口，zookeeper的默认端口是2181，kafka的默认端口是9092。一台计算机上两个程序的所占用的端口是不能一样的，所以不能重复。9092是kafka的默认端口，写在kafka的配置文件里面的，你看视频里面老师启动kafka的时候指定了配置文件server.properties。
+
+	kafka里面配置的ip地址如何找到对应的pod???  192.168.3.125:9092,192.168.3.123:9092,192.168.3.124:9092
+	如何找到对应zookeeper配置呢？
+	./kafka-consumer-groups.sh --zookeeper 172.21.11.255:2181 --list
+	./kafka-consumer-groups.sh  --bootstrap-server localhost:9092 --list
+
+
+
 # admin 模式
 sudo su admin
 	1.su、sudo、sudo su、sudo -i的用法和区别   :    https://blog.csdn.net/huang_shao1/article/details/82957138
