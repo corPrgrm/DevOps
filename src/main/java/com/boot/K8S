@@ -1,6 +1,7 @@
 0.Kubectl基本操作命令  ：https://blog.csdn.net/u011095110/article/details/83545350
   Kubernetes中Namespace与Pod概念:  https://blog.csdn.net/weixin_45186298/article/details/103926743
   pod和service关系：https://zhuanlan.zhihu.com/p/105006577?utm_source=wechat_session  ********* Kubernetes in Action中文版
+  进入pod可以通过ps -ef查看对应的进程 比如searcher是否启动....
 
 1.kafka问题排查  https://jingyan.baidu.com/article/eb9f7b6d367679869364e8d4.html
 	df -h 
