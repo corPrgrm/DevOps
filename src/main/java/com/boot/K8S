@@ -1,0 +1,78 @@
+0.Kubectl基本操作命令  ：https://blog.csdn.net/u011095110/article/details/83545350
+  Kubernetes中Namespace与Pod概念:  https://blog.csdn.net/weixin_45186298/article/details/103926743
+  pod和service关系：https://zhuanlan.zhihu.com/p/105006577?utm_source=wechat_session  ********* Kubernetes in Action中文版
+
+1.kafka问题排查  https://jingyan.baidu.com/article/eb9f7b6d367679869364e8d4.html
+	df -h 
+	这个命令看看pod 的磁盘情况
+2.kubectl get pods | grep kafka 
+
+然后这条命令看看，kafka 的pod 情况
+
+3.kubectl get events | grep kafka  /////    kubectl get pod --all-namespaces |grep kafka
+
+4.#进入 kafka 的 pod
+kubectl exec -it alibaba-kafka-cluster-private-paas-default-0 bash    ==> 如何从config配置中的kafka信息获取到对应的pod....????
+
+# admin 模式
+sudo su admin
+
+#进入到 kafka 命令行文件夹
+cd /home/admin/KafkaProxy/bin/
+
+#查看监听者的消费积压情况
+./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic stg_rljghxx_yushirkgl
+
+5.control C退出，执行下这个
+
+./kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --group vcs-dataengine
+
+=====引入了zookeeper====
+
+
+
+======读写权限问题=====
+1.mount ..  读写权限没有了，所以导致起不来。增加副本使其到不同的node上就可以正常执行了。
+2.如何查看pod的挂载点和mount目录关系？
+3.如何查看当前pod在哪个node上面？  kubectl get pod -n vcs -o wide   https://blog.csdn.net/u013288190/article/details/109681439
+4.查看每个node对应的ip   kubectl get service -n vcs      原理：https://xw.qq.com/amphtml/20201021A0IGSX00  
+
+5.启动manager --purge 不能用？报错？=== 通过kubectl delete xxxxxpod名字 -n  vcs 删除 自动拉起来
+6.history pod 没有启动？报错没有是什么问题？  1. 先查看controller的日志信息，根据代码确定走到哪里报错  2.是否configmap没有配置对应的history信息
+
+7.pod的健康:https://blog.csdn.net/weixin_44907813/article/details/108035969
+8.pod service 管理：kubectl get svc   
+
+9.namespace /servcie /pod /container.....资源概念 。。。 创建命名空间，提交到k8s容器：https://blog.csdn.net/qq_41453285/article/details/111826823
+
+10.Kubernetes K8S之Pod跨namespace名称空间访问Service服务  https://www.cnblogs.com/shetao/p/14340124.html
+这里是指通过Service的Name进行通信访问，而不是通过Service的IP【因因为每次重启Service，NAME不会改变，而IP是会改变的】
+
+11.删除：通过delete会自动拉起来，通过删除deplement.yaml文件
+    kubectl delete xxx-history-xxx-deployment-6f8fdd4dgkph -n命名空间
+    
+		Kubernetes强制删除Pod、namespace资源 ：# 删除POD
+		kubectl delete pod PODNAME --force --grace-period=0
+
+		# 删除NAMESPACE
+		kubectl delete namespace NAMESPACENAME --force --grace-period=0
+		# 删除default namespace下的pod名为pod-to-be-deleted-0
+		ETCDCTL_API=3 etcdctl del /registry/pods/default/pod-to-be-deleted-0
+
+		# 删除需要删除的NAMESPACE
+		etcdctl del /registry/namespaces/NAMESPACENA
+
+12.kubectl apply -f namespace.yaml 
+
+13.helm操作
+  helm delete --purge xxx名字 service=xxxxcontroller-manager
+  helm install . --name $service   service=xxxe-controller-manager
+  helm delete --purge  $service
+  安装原理：需要当前目录有temlate文件夹定义deploment/service/configmap ; 需要values.yaml进行拉取从本地仓库拉取对应分支 ， 进行安装，这就是helm干的事情也是sps-干的事情。
+  servcie和pod名字关系：xxxcontroller-manager-84f85bcfb8-wrn8s  pod名字再去后面加了标识。前面一样的。
+  
+14. editpod没有看到副本数量 
+    kubectl get  deploy -n 命名空间 |grep xx  
+    kubectl edit deploy -n 命名空间 xxx-xxxx-deployment（刚才查到的）
+
+  
