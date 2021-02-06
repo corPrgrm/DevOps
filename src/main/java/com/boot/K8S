@@ -17,6 +17,8 @@ kubectl exec -it alibaba-kafka-cluster-private-paas-default-0 bash    ==> 如何
 
 # admin 模式
 sudo su admin
+	1.su、sudo、sudo su、sudo -i的用法和区别   :    https://blog.csdn.net/huang_shao1/article/details/82957138
+
 
 #进入到 kafka 命令行文件夹
 cd /home/admin/KafkaProxy/bin/
