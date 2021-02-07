@@ -58,7 +58,7 @@ cd /home/admin/KafkaProxy/bin/
 3.如何查看当前pod在哪个node上面？  kubectl get pod -n vcs -o wide   https://blog.csdn.net/u013288190/article/details/109681439
 4.查看每个node对应的ip   kubectl get service -n vcs      原理：https://xw.qq.com/amphtml/20201021A0IGSX00  
 
-5.启动manager --purge 不能用？报错？=== 通过kubectl delete xxxxxpod名字 -n  vcs 删除 自动拉起来
+5.启动manager --purge 不能用？报错？=== 通过kubectl delete pod xxxxxpod名字 -n  vcs 删除 自动拉起来
 6.history pod 没有启动？报错没有是什么问题？  1. 先查看controller的日志信息，根据代码确定走到哪里报错  2.是否configmap没有配置对应的history信息
 
 7.pod的健康:https://blog.csdn.net/weixin_44907813/article/details/108035969
@@ -70,7 +70,7 @@ cd /home/admin/KafkaProxy/bin/
 这里是指通过Service的Name进行通信访问，而不是通过Service的IP【因因为每次重启Service，NAME不会改变，而IP是会改变的】
 
 11.删除：通过delete会自动拉起来，通过删除deplement.yaml文件
-    kubectl delete pod xxx-history-xxx-deployment-6f8fdd4dgkph -n命名空间  === 不能自动更新代码只能重新拉起pod ****
+    kubectl delete pod xxx-history-xxx-deployment-6f8fdd4dgkph -n命名空间  === 不能自动更新代码只能重新拉起pod **** kubectl delete deployment jenkins2 -n jenkins 真正删除
     
 		Kubernetes强制删除Pod、namespace资源 ：# 删除POD
 		kubectl delete pod PODNAME --force --grace-period=0
