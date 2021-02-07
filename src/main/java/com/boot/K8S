@@ -70,7 +70,7 @@ cd /home/admin/KafkaProxy/bin/
 这里是指通过Service的Name进行通信访问，而不是通过Service的IP【因因为每次重启Service，NAME不会改变，而IP是会改变的】
 
 11.删除：通过delete会自动拉起来，通过删除deplement.yaml文件
-    kubectl delete xxx-history-xxx-deployment-6f8fdd4dgkph -n命名空间
+    kubectl delete pod xxx-history-xxx-deployment-6f8fdd4dgkph -n命名空间
     
 		Kubernetes强制删除Pod、namespace资源 ：# 删除POD
 		kubectl delete pod PODNAME --force --grace-period=0
