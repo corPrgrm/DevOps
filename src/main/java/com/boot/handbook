@@ -1,5 +1,5 @@
 文章链接：《Kubernetes Handbook——Kubernetes 中文指南/云原生应用架构实践手册》：https://jimmysong.io/kubernetes-handbook/
-
+	 《命令操作手册》						    https://www.kubernetes.org.cn/docs
 
 首先说一下Docker、Kubernetes、Helm都是什么，和三者的关系
 						- Docker是用来打包程序的配置文件和程序本身的容器（container）技术。docker生成的container，可以在任何环境（无论你是windows电脑，还是linux）里运行，不需要再做任何配置。
