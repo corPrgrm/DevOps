@@ -8,6 +8,9 @@
 		5.controller	k8s通常不会直接创建pod,而是通过controller来管理pod的。controller中定义了pod的部署特性，比如有几个剧本，在什么样的node上运行等。为了满足不同的业务场景，k8s提供了多种controller，包括deployment、replicaset、daemonset、statefulset、job等。
 
 
+对比xargs 和 mount |grep '/var/lib/docker/' - 记得有个横杠 。。。。<== 将输出作为参数。
+
+
 [root@vcs-dev-master001 logs]# kubectl get pod -n vcs -o wide   === 通过 -o wide得到更多 比如当前pod在哪个node上面。。。
 NAME                                                              READY   STATUS             RESTARTS   AGE     IP              NODE                        NOMINATED NODE   READINESS GATE
  
