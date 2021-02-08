@@ -228,7 +228,67 @@
 					1.通过抽象这些资源对象来控制k8s ResourceQuota -- 限额
 					
 
+				第五章： 真正实践：：：：：：==========未完成
+					第一部分 在CentOS上部署kubernetes集群中介绍了如何通过二进制文件在CentOS物理机（也可以是公有云主机）上快速部署一个kubernetes集群。
+					第二部分介绍如何在kubernetes中的服务发现与负载均衡。
+					第三部分介绍如何运维kubernetes集群。
+					第四部分介绍kubernetes中的存储管理。
+					第五部分关于kubernetes集群和应用的监控。
+					第六部分介绍kuberentes中的服务编排与管理。
+					第七部分介绍如何基于kubernetes做持续集成与发布。
+					第八部分是kubernetes集群与插件的更新升级。
 
+				********************安装对应插件和elk.....
+				0.在CentOS上部署kubernetes集群:https://jimmysong.io/kubernetes-handbook/practice/install-kubernetes-on-centos.html
+
+				1.使用Vistio监控Istio服务网格中的流量
+				2.链路追踪：opentracing 
+				3.helm:
+					1.Helm chart 是用来封装 Kubernetes 原生应用程序的 YAML 文件，可以在你部署应用的时候自定义应用程序的一些 metadata，便与应用程序的分发。
+					2.Helm 和 chart 的主要作用是：
+						应用程序封装
+						版本管理
+						依赖检查
+						便于应用程序分发
+					3.mychart  --- 我们还可以在 templates 目录加其他 Kubernetes 对象的配置，比如 ConfigMap、DaemonSet 等。
+						├── Chart.yaml
+						├── charts # 该目录保存其他依赖的 chart（子 chart）
+						├── templates # chart 配置模板，用于渲染最终的 Kubernetes YAML 文件
+						│   ├── NOTES.txt # 用户运行 helm install 时候的提示信息
+						│   ├── _helpers.tpl # 用于创建模板时的帮助类
+						│   ├── deployment.yaml # Kubernetes deployment 配置
+						│   ├── ingress.yaml # Kubernetes ingress 配置
+						│   ├── service.yaml # Kubernetes service 配置
+						│   ├── serviceaccount.yaml # Kubernetes serviceaccount 配置
+						│   └── tests
+						│       └── test-connection.yaml
+						└── values.yaml # 定义 chart 模板中的自定义配置的默认值，可以在执行 helm install 或 helm update 的时候覆盖
+
+						Helm 常用命令如下：
+
+							helm create：在本地创建新的 chart；
+							helm dependency：管理 chart 依赖；
+							helm intall：安装 chart；
+							helm lint：检查 chart 配置是否有误；
+							helm list：列出所有 release；
+							helm package：打包本地 chart；
+							helm repo：列出、增加、更新、删除 chart 仓库；
+							helm rollback：回滚 release 到历史版本；
+							helm pull：拉取远程 chart 到本地；
+							helm search：使用关键词搜索 chart；
+							helm uninstall：卸载 release；
+							helm upgrade：升级 release；
+
+						helm list|grep controller-manager  其实cotroller-manager和searcher不是两个应用而是一个。只是这个是管理节点。所以你打一个包，就是在一起，
+						    在其中的helm install就是将包安装 
+
+						Chart仓库
+
+
+				4.jekins
+					持续集成与发布，简称CI/CD，是微服务构建的重要环节，也是DevOps中推崇的方法论。
+
+				5.dashboard:界面管理k8s...
 
 					命令: docker --> k8s ---https://jimmysong.io/kubernetes-handbook/guide/kubectl-cheatsheet.html ****
 						1.docker run -d --restart=always -e DOMAIN=cluster --name nginx-app -p 80:80 nginx
@@ -243,7 +303,14 @@
 
 				  	1.每个Kubernetes集群都有一个集群根证书颁发机构（CA）。 集群中的组件通常使用CA来验证API server的证书，由API服务器验证kubelet客户端证书等。
 				  	2.
-
+					
+					
+					
+					
+					
+					
+					
+					
 				  	1.应用领域 -- service mesh --isotio --- 微服务解决方案 -- 网络模型
 						1.Kubernetes 设计之初就是按照 Cloud Native 的理念设计的，Cloud Native 中有个重要概念就是微服务的架构设计，当将单体应用拆分微服务后， 随着服务数量的增多，如何微服务进行管理以保证服务的 SLA 呢？为了从架构层面上解决这个问题，解放程序员的创造性，避免繁琐的服务发现、监控、分布式追踪等事务，Service mesh 应运而生。
 						2.微服务中的服务发现	
