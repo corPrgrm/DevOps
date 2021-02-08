@@ -86,7 +86,7 @@ cd /home/admin/KafkaProxy/bin/
 		# 删除需要删除的NAMESPACE
 		etcdctl del /registry/namespaces/NAMESPACENA
 
-12.kubectl apply -f namespace.yaml 
+12.kubectl apply -f namespace.yaml   / kubectl create -f my-crontab.yaml
 
 13.helm操作
   helm delete --purge xxx名字 service=xxxxcontroller-manager
