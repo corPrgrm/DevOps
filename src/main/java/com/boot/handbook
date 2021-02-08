@@ -1,6 +1,22 @@
 文章链接：《Kubernetes Handbook——Kubernetes 中文指南/云原生应用架构实践手册》：https://jimmysong.io/kubernetes-handbook/
 	 《命令操作手册》						    https://www.kubernetes.org.cn/docs
 
+
+云原生：
+
+					使用轻量级的容器打包
+					使用最合适的语言和框架开发
+					以松耦合的微服务方式设计
+					以API为中心的交互和协作
+					无状态和有状态服务在架构上界限清晰
+					不依赖于底层操作系统和服务器
+					部署在自服务、弹性的云基础设施上
+					通过敏捷的DevOps流程管理
+					自动化能力
+					通过定义和策略驱动的资源分配
+
+
+
 首先说一下Docker、Kubernetes、Helm都是什么，和三者的关系
 						- Docker是用来打包程序的配置文件和程序本身的容器（container）技术。docker生成的container，可以在任何环境（无论你是windows电脑，还是linux）里运行，不需要再做任何配置。
 						- kubernetes用来部署docker的containers。
