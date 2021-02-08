@@ -7,6 +7,11 @@
 		4.pod	pod是k8s的最小工作单元。每个pod包含一个或者多个容器。pod中的容器会作为一个整体被master调度到一个node上运行。
 		5.controller	k8s通常不会直接创建pod,而是通过controller来管理pod的。controller中定义了pod的部署特性，比如有几个剧本，在什么样的node上运行等。为了满足不同的业务场景，k8s提供了多种controller，包括deployment、replicaset、daemonset、statefulset、job等。
 
+1.k8s指导文章阅读及笔记：《Kubernetes Handbook——Kubernetes 中文指南/云原生应用架构实践手册》 handbook
+2.
+
+
+
 
 对比xargs 和 mount |grep '/var/lib/docker/' - 记得有个横杠 。。。。<== 将输出作为参数。
 
