@@ -7,6 +7,9 @@
 		4.pod	pod是k8s的最小工作单元。每个pod包含一个或者多个容器。pod中的容器会作为一个整体被master调度到一个node上运行。
 		5.controller	k8s通常不会直接创建pod,而是通过controller来管理pod的。controller中定义了pod的部署特性，比如有几个剧本，在什么样的node上运行等。为了满足不同的业务场景，k8s提供了多种controller，包括deployment、replicaset、daemonset、statefulset、job等。
 
+
+[root@vcs-dev-master001 logs]# kubectl get pod -n vcs -o wide   === 通过 -o wide得到更多 比如当前pod在哪个node上面。。。
+NAME                                                              READY   STATUS             RESTARTS   AGE     IP              NODE                        NOMINATED NODE   READINESS GATE
  
   进入pod可以通过ps -ef查看对应的进程 比如searcher是否启动....
 
