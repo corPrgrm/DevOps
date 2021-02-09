@@ -9,7 +9,7 @@
 
 1.k8s指导文章阅读及笔记：《Kubernetes Handbook——Kubernetes 中文指南/云原生应用架构实践手册》 handbook
 	1.1 k8s-YAML配置文件：https://www.cnblogs.com/bigberg/p/9203619.html  不要使用tab
-	
+	1.2 容器技术 ：https://blog.fleeto.us/	
 	
 2.Kubernetes 的高级调度  https://blog.fleeto.us/post/adv-scheduler-in-k8s/  更灵活的pod/node/pod之间调度
 3.可以执行kubectl top pod -n xxx 来查看对应的pod信息/node信息 同样也可以进入pod中执行相关命令查看更多细节
