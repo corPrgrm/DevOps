@@ -1,4 +1,4 @@
-0.Kubectl基本操作命令  ：https://blog.csdn.net/u011095110/article/details/83545350
+0.Kubectl基本操作命令  ：https://www.kubernetes.org.cn/doc-48   +  https://blog.csdn.net/u011095110/article/details/83545350 
   Kubernetes中Namespace与Pod概念:  https://blog.csdn.net/weixin_45186298/article/details/103926743
   pod和service关系：https://zhuanlan.zhihu.com/p/105006577?utm_source=wechat_session  ********* Kubernetes in Action中文版
   		1.cluster  cluster是 计算、存储和网络资源的集合，k8s利用这些资源运行各种基于容器的应用。
@@ -8,8 +8,12 @@
 		5.controller	k8s通常不会直接创建pod,而是通过controller来管理pod的。controller中定义了pod的部署特性，比如有几个剧本，在什么样的node上运行等。为了满足不同的业务场景，k8s提供了多种controller，包括deployment、replicaset、daemonset、statefulset、job等。
 
 1.k8s指导文章阅读及笔记：《Kubernetes Handbook——Kubernetes 中文指南/云原生应用架构实践手册》 handbook
+	1.1 k8s-YAML配置文件：https://www.cnblogs.com/bigberg/p/9203619.html  不要使用tab
+	
+	
 2.Kubernetes 的高级调度  https://blog.fleeto.us/post/adv-scheduler-in-k8s/  更灵活的pod/node/pod之间调度
 3.可以执行kubectl top pod -n xxx 来查看对应的pod信息/node信息 同样也可以进入pod中执行相关命令查看更多细节
+4.k8s指南 https://kubernetes.feisky.xyz/troubleshooting/index
 
 
 
