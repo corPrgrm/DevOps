@@ -1,11 +1,16 @@
 package com.app;
 
+import com.boot.UserJpaRepostry;
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.apache.dubbo.config.spring.context.annotation.EnableDubboConfig;
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**
  * @author YangWenjun
@@ -19,7 +24,13 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 //    @EnableDubboConfiguration
     @EnableDubbo
     @EnableDubboConfig
+
+    @EnableJpaRepositories("com.boot")
+    @EntityScan("com.boot")
+
+    @MapperScan("com.boot")
     public class SpringBootApplication /*extends SpringBootServletInitializer*/ {
+
 
         public static void main(String[] args) {
             SpringApplication.run(SpringBootApplication.class, args);
