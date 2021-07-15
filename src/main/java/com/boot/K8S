@@ -1,0 +1,114 @@
+0.Kubectl基本操作命令  ：https://www.kubernetes.org.cn/doc-48   +  https://blog.csdn.net/u011095110/article/details/83545350 
+  Kubernetes中Namespace与Pod概念:  https://blog.csdn.net/weixin_45186298/article/details/103926743
+  pod和service关系：https://zhuanlan.zhihu.com/p/105006577?utm_source=wechat_session  ********* Kubernetes in Action中文版
+  		1.cluster  cluster是 计算、存储和网络资源的集合，k8s利用这些资源运行各种基于容器的应用。
+		2.master    master是cluster的大脑，他的主要职责是调度，即决定将应用放在那里运行。master运行linux操作系统，可以是物理机或者虚拟机。为了实现高可用，可以运行多个master。
+		3.node	node的职责是运行容器应用。node由master管理，node负责监控并汇报容器的状态，同时根据master的要求管理容器的生命周期。node运行在linux的操作系统上，可以是物理机或者是虚拟机。
+		4.pod	pod是k8s的最小工作单元。每个pod包含一个或者多个容器。pod中的容器会作为一个整体被master调度到一个node上运行。
+		5.controller	k8s通常不会直接创建pod,而是通过controller来管理pod的。controller中定义了pod的部署特性，比如有几个剧本，在什么样的node上运行等。为了满足不同的业务场景，k8s提供了多种controller，包括deployment、replicaset、daemonset、statefulset、job等。
+
+1.k8s指导文章阅读及笔记：《Kubernetes Handbook——Kubernetes 中文指南/云原生应用架构实践手册》 handbook
+	1.1 k8s-YAML配置文件：https://www.cnblogs.com/bigberg/p/9203619.html  不要使用tab
+	1.2 容器技术 ：https://blog.fleeto.us/	
+	
+2.Kubernetes 的高级调度  https://blog.fleeto.us/post/adv-scheduler-in-k8s/  更灵活的pod/node/pod之间调度
+3.可以执行kubectl top pod -n xxx 来查看对应的pod信息/node信息 同样也可以进入pod中执行相关命令查看更多细节
+4.k8s指南 https://kubernetes.feisky.xyz/troubleshooting/index
+
+
+
+对比xargs 和 mount |grep '/var/lib/docker/' - 记得有个横杠 。。。。<== 将输出作为参数。
+
+
+[root@vcs-dev-master001 logs]# kubectl get pod -n vcs -o wide   === 通过 -o wide得到更多 比如当前pod在哪个node上面。。。
+NAME                                                              READY   STATUS             RESTARTS   AGE     IP              NODE                        NOMINATED NODE   READINESS GATE
+ 
+  进入pod可以通过ps -ef查看对应的进程 比如searcher是否启动....
+
+1.kafka问题排查  https://jingyan.baidu.com/article/eb9f7b6d367679869364e8d4.html
+	df -h 
+	这个命令看看pod 的磁盘情况
+2.kubectl get pods | grep kafka 
+
+然后这条命令看看，kafka 的pod 情况
+
+3.kubectl get events | grep kafka  /////    kubectl get pod --all-namespaces |grep kafka
+
+4.#进入 kafka 的 pod
+kubectl exec -it alibaba-kafka-cluster-private-paas-default-0 bash    ==> 如何从config配置中的kafka信息获取到对应的pod....????
+
+	通过原生kafka，查看对应的topic是否有数据 :https://www.cnblogs.com/sunshine-blog/p/11929867.html
+	zookeeper的端口号2181和broker的端口号9092为什么不同呢？
+		你可以这样理解，zookeeper和kafka是两个程序。这两个程序启动都有自己的默认端口，zookeeper的默认端口是2181，kafka的默认端口是9092。一台计算机上两个程序的所占用的端口是不能一样的，所以不能重复。9092是kafka的默认端口，写在kafka的配置文件里面的，你看视频里面老师启动kafka的时候指定了配置文件server.properties。
+
+	kafka里面配置的ip地址如何找到对应的pod???  192.168.3.125:9092,192.168.3.123:9092,192.168.3.124:9092
+	如何找到对应zookeeper配置呢？
+	./kafka-consumer-groups.sh --zookeeper 172.21.11.255:2181 --list
+	./kafka-consumer-groups.sh  --bootstrap-server localhost:9092 --list
+
+
+
+# admin 模式
+sudo su admin
+	1.su、sudo、sudo su、sudo -i的用法和区别   :    https://blog.csdn.net/huang_shao1/article/details/82957138
+
+
+#进入到 kafka 命令行文件夹
+cd /home/admin/KafkaProxy/bin/
+
+#查看监听者的消费积压情况
+./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic stg_rljghxx_yushirkgl
+
+5.control C退出，执行下这个
+
+./kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --group vcs-dataengine
+
+=====引入了zookeeper====
+
+
+
+======读写权限问题=====
+1.mount ..  读写权限没有了，所以导致起不来。增加副本使其到不同的node上就可以正常执行了。
+2.如何查看pod的挂载点和mount目录关系？
+3.如何查看当前pod在哪个node上面？  kubectl get pod -n vcs -o wide   https://blog.csdn.net/u013288190/article/details/109681439
+4.查看每个node对应的ip   kubectl get service -n vcs      原理：https://xw.qq.com/amphtml/20201021A0IGSX00  
+
+5.启动manager --purge 不能用？报错？=== 通过kubectl delete pod xxxxxpod名字 -n  vcs 删除 自动拉起来
+6.history pod 没有启动？报错没有是什么问题？  1. 先查看controller的日志信息，根据代码确定走到哪里报错  2.是否configmap没有配置对应的history信息
+
+7.pod的健康:https://blog.csdn.net/weixin_44907813/article/details/108035969
+8.pod service 管理：kubectl get svc   
+
+9.namespace /servcie /pod /container.....资源概念 。。。 创建命名空间，提交到k8s容器：https://blog.csdn.net/qq_41453285/article/details/111826823
+
+10.Kubernetes K8S之Pod跨namespace名称空间访问Service服务  https://www.cnblogs.com/shetao/p/14340124.html
+这里是指通过Service的Name进行通信访问，而不是通过Service的IP【因因为每次重启Service，NAME不会改变，而IP是会改变的】
+
+11.删除：通过delete会自动拉起来，通过删除deplement.yaml文件
+    kubectl delete pod xxx-history-xxx-deployment-6f8fdd4dgkph -n命名空间  === 不能自动更新代码只能重新拉起pod **** kubectl delete deployment jenkins2 -n jenkins 真正删除
+    
+		Kubernetes强制删除Pod、namespace资源 ：# 删除POD
+		kubectl delete pod PODNAME --force --grace-period=0
+
+		# 删除NAMESPACE
+		kubectl delete namespace NAMESPACENAME --force --grace-period=0
+		# 删除default namespace下的pod名为pod-to-be-deleted-0
+		ETCDCTL_API=3 etcdctl del /registry/pods/default/pod-to-be-deleted-0
+
+		# 删除需要删除的NAMESPACE
+		etcdctl del /registry/namespaces/NAMESPACENA
+
+12.kubectl apply -f namespace.yaml   / kubectl create -f my-crontab.yaml
+
+13.helm操作
+  helm delete --purge xxx名字 service=xxxxcontroller-manager
+  helm install . --name $service   service=xxxe-controller-manager
+  helm delete --purge  $service
+  安装原理：需要当前目录有temlate文件夹定义deploment/service/configmap ; 需要values.yaml进行拉取从本地仓库拉取对应分支 ， 进行安装，这就是helm干的事情也是sps-干的事情。
+  servcie和pod名字关系：xxxcontroller-manager-84f85bcfb8-wrn8s  pod名字再去后面加了标识。前面一样的。
+  
+14. editpod没有看到副本数量 
+    kubectl get  deploy -n 命名空间 |grep xx  
+    kubectl edit deploy -n 命名空间 xxx-xxxx-deployment（刚才查到的）
+
+  

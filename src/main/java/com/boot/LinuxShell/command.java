@@ -2,8 +2,15 @@ package com.boot.LinuxShell;
 
 public class command {
 
-
-
+   todo：高级用法
+            1.APP_HOME=$(cd $(dirname ${BASH_SOURCE[0]})/..; pwd)
+            2.$(basename "${APP_HOME}")
+            3.export
+            4.ulimit
+            5.test -z "$JPDA_ENABLE" && JPDA_ENABLE=0
+            6.let
+    
+    
     /***
      *
      * ***************************查看对应的应用日志********************
